@@ -1,0 +1,30 @@
+<!-- source for carousel: https://getbootstrap.com/docs/4.0/components/carousel/ -->
+<!-- source for images: https://unsplash.com/ -->
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <br>
+        <br>
+        <h1 class="title-font" id="title-index" align="center">Ethical Eats!</h1>
+        <p>
+            <br><br>
+            <center>
+                <div class="btn-group">
+                    <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Select A Meal
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Omelette</a>
+                        <a class="dropdown-item" href="#">Chicken Noodle Soup</a>
+                        <a class="dropdown-item" href="#">Mac-n-Cheese</a>
+                    </div>
+                </div>
+            </center>
+        </p>
+    </div>
+
+{% endblock %}
