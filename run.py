@@ -1,0 +1,2 @@
+from ethicalEats import app
+
