@@ -3,7 +3,7 @@ CS361 - Ethical Eating
 
 INITIAL SETUP
 
-- set up virtual environment on flip, in folder of your choice 
+- set up virtual environment on flip, in folder of your choice (don't set it up in the same folder as the Ethical Eats github folder)
       bash 
       virtualenv venv -p $(which python3)
 - activate your virtual env
