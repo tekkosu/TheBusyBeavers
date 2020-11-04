@@ -19,7 +19,7 @@ INITIAL SETUP
       export FLASK_DEBUG=1
 - Run Flask
       python -m flask run -h 0.0.0.0 -p #### (replace #### with port number)
-- Run Flask Persistently
+- Or Run Flask Persistently
       gunicorn run:app -b 0.0.0.0:#### -D
 
 Resources:
