@@ -21,3 +21,7 @@ INITIAL SETUP
       python -m flask run -h 0.0.0.0 -p #### (replace #### with port number)
 - Run Flask Persistently
       gunicorn run:app -b 0.0.0.0:#### -D
+
+Resources:
+https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
+https://getbootstrap.com/docs/4.0/components/navbar/
