@@ -1,7 +1,8 @@
 # TheBusyBeavers
 CS361 - Ethical Eating
 
-INITIAL SETUP 
+INITIAL SETUP
+
 	- set up virtual environment on flip, in folder of your choice 
       bash 
       virtualenv venv -p $(which python3)
