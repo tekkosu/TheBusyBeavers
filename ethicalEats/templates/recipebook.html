@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <br>
+        <br>
+        <h1 class="title-font" id="title-index" align="center">Ethical Eats!</h1>
+        <p>
+            <br><br>
+            <center>
+                <div>
+                    <p>Recipe Book</p>
+                    <table>
+                        <tr>
+                            <th>Recipe ID</th>
+                            <th>Recipe Name</th>
+                        </tr>
+                        {% for row in recipes %}
+                        <tr>
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </center>
+        </p>
+    </div>
+
+{% endblock %}
