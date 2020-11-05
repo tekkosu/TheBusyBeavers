@@ -1,0 +1,57 @@
+<!-- ingredients.html -->
+
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <br>
+        <br>
+        <h1 class="title-font" id="title-ingredients" align="center">Ingredients</h1>
+        <p>
+            <br><br>
+            <center>
+                  <div class="container">
+    <h2>Ingredients in this recipe</h2>
+    <p></p>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Ingredient</th>
+          <th scope="col">Ethical Alert</th>
+          <th scope="col">Ethical Description</th>
+          <th scope="col">Suggested Alternative</th>
+          <th scope="col">Use Alternative?</th>
+        </tr>
+      </thead>
+        <tbody>
+    {% for row in Ingredients %}
+        <tr>
+            <th scope="row">{{ingredientID}}</th>
+            <td>{{ingredientName}}</td>
+            {% if {{ethicalIssue}} == 1 %}
+            <td>&#10071;</td>
+            {% else %}
+            <td>&#9989;</td>
+            {% endif %}
+            <td>{{ethicalDescription}}</td>
+            <td>
+                <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Alternatives
+                </button>
+            </td>
+            <td>
+                <input type="checkbox" id="useAlt" value=1>
+            </td>
+        </tr>
+   	{% endfor %}
+        </tbody>
+    </table>
+    </div>
+        </p>
+    </div>
+
+{% endblock %}
