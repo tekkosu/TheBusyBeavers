@@ -53,7 +53,7 @@ PRIMARY KEY (ethicalIngredientID, ingredientID)
 INSERT INTO `Users` (`userID`, `userName`, `userPassword`) VALUES
 (1, 'holtze', 'password'),
 (2, 'tekk', 'strongpassword'),
-(3, 'jensenj', 'p@ssword'),
+(3, 'jensent', 'p@ssword'),
 (4, 'yehl', 'strongp@ssword1');
 
 
