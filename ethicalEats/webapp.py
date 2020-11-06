@@ -28,8 +28,10 @@ def recipe(recipe_id):
 
 @webapp.route('/ingredients')
 def ingredients():
-    return render_template('ingredients.html')
-
+    db_connection = connect_to_database()
+    query = "SELECT * from Ingredients"
+    result = execute_query(db_connection, query).fetchall()
+    return render_template('ingredients.html', ingredients=result)
 
 @webapp.errorhandler(404)
 def heh_error(e):
