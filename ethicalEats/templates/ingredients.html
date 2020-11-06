@@ -1,11 +1,10 @@
-<!-- ingredients.html -->
-
 {% extends "base.html" %}
 
 {% block head %}
 {% endblock %}
 
 {% block body %}
+
     <div class="container">
         <br>
         <br>
@@ -28,16 +27,16 @@
         </tr>
       </thead>
         <tbody>
-    {% for row in Ingredients %}
+    {% for row in ingredients %}
         <tr>
-            <th scope="row">{{ingredientID}}</th>
-            <td>{{ingredientName}}</td>
-            {% if {{ethicalIssue}} == 1 %}
-            <td>&#10071;</td>
-            {% else %}
+            <th scope="row">{{row[0]}}</th>
+            <td>{{row[1]}}</td>
+<!--        <td>&#10071;</td>
             <td>&#9989;</td>
-            {% endif %}
-            <td>{{ethicalDescription}}</td>
+-->            
+            <td>{{row[2]}}</td>
+            <td>{{row[3]}}</td>
+
             <td>
                 <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Alternatives
@@ -49,6 +48,7 @@
         </tr>
    	{% endfor %}
         </tbody>
+        
     </table>
     </div>
         </p>
