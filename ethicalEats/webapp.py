@@ -19,6 +19,13 @@ def recipebook():
     result = execute_query(db_connection, query).fetchall()
     return render_template('recipebook.html', recipes=result)
 
+@webapp.route('/recipe/<int:recipe_id>')
+def recipe(recipe_id):
+    db_connection = connect_to_database()
+    query = "SELECT * from Recipes where recipeID = %s" & recipe_id
+    result = execute_query(db_connection, query).fetchall()
+    return render_template('recipe.html', recipe=result)
+
 @webapp.route('/ingredients')
 def ingredients():
     return render_template('ingredients.html')
