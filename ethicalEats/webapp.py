@@ -30,6 +30,45 @@ def ingredients(recipe_id):
 
     return render_template('ingredients.html', ingredients = ingredients_result, recipe = recipe_result)
 
+
+# Table attributes are: userID, userName userPassword
+@webapp.route('/createAccount', methods = ['GET', 'POST'])
+def createAccount():
+
+    # check if the username, password, and email already exists in the database
+    if request.method == 'POST' and 'userName' in request.form and 'userPassword' in request.form and 'userEmail' in request.form:
+        # variables of user's info to reference for later
+        username = request.form['userName']
+        password = request.form['userPassword']
+        email = request.form['userEmail']
+
+        # check if the account exists via database
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)   # DBCONNECTOR EQUIVALENT CODE???
+        cursor.execute('SELECT * FROM Users WHERE userName = %s AND userPassword = %s', (username, password))   # DBCONNECTOR EQUIVALENT CODE???
+        acct = cursor.fetchone()   # DBCONNECTOR EQUIVALENT CODE???
+
+        if acct:
+            msg = 'This account already exists.'
+        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+            msg = 'Email is invalid.'
+        elif not re.match(r'[A-Za-z0-9]+', username):
+            msg = 'Username can only contain characters and numbers.'
+        elif not username or not password or not email:
+            msg = 'Please fill out the entire form to create an account.'
+
+        # else, there is no existing account and requirements are met for user info, add new account into 'Users' Table
+        else:
+            cursor.execute('INSERT INTO Users VALUES (NULL, %s, %s, %s)', (username, password, email))   # DBCONNECTOR EQUIVALENT CODE???
+            mysql.connection.commit()   # DBCONNECTOR EQUIVALENT CODE???
+            msg = 'Your account has been created.'
+
+    # form is not filled out
+    elif request.method == 'POST':
+        msg = 'Please fill out the form to create an account.'
+
+    return render_template('createAccount.html')   # renders createAccount.html page
+
+
 @webapp.errorhandler(404)
 def heh_error(e):
     return render_template('404.html'), 404
