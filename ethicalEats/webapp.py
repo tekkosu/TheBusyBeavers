@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, url_for, session, redirect
 from db_connector.db_connector import connect_to_database, execute_query
-from flask_mysqldb import MySQL
-import MySQLdb.cursors
+#from flask_mysqldb import MySQL
+#import MySQLdb.cursors
 import re
 
 # Creates Flask instance
@@ -35,7 +35,11 @@ def ingredients(recipe_id):
     recipe_query = "select * from Recipes where recipeID = %i" % recipe_id
     recipe_result = execute_query(db_connection, recipe_query).fetchall()
 
-    return render_template('ingredients.html', ingredients = ingredients_result, recipe = recipe_result)
+    alternative_query = "SELECT ei.ethicalIngredientID, ei.ingredientName, ei.description FROM EthicalIngredients as ei INNER JOIN Ingredients_EthicalIngredients as iei ON ei.ethicalIngredientID = ei.ethicalIngredientID INNER JOIN Ingredients as i ON iei.ingredientID = i.ingredientID"
+    alternative_result = execute_query(db_connection, recipe_query).fetchall()
+
+    #return render_template('ingredients.html', ingredients = ingredients_result, recipe = recipe_result)
+    return render_template('ingredients.html', ingredients = ingredients_result, recipe = recipe_result, alternative = alternative_result)
 
 
 # CONVERT THIS TO DB_CONNECT FORM LATER ON???
