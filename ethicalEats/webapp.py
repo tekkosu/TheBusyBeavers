@@ -10,8 +10,14 @@ webapp = Flask(__name__)
 
 @webapp.route('/')
 def index():
-    return render_template('index.html')
+    db_connection = connect_to_database()
+    query = "SELECT * from Recipes"
+    result = execute_query(db_connection, query).fetchall()
+    return render_template('index.html', recipes=result)
 
+@webapp.route('/about')
+def about():
+	return render_template("about.html")
 
 @webapp.route('/recipebook')
 def recipebook():

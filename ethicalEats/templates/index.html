@@ -7,19 +7,23 @@
     <div class="container">
         <br>
         <br>
+        <br>
+        <br>
         <h1 class="title-font" id="title-index" align="center">Ethical Eats!</h1>
         <p>
             <br><br>
             <center>
                 <div class="btn-group">
                     <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Select A Meal
+                    Select A Recipe
                     </button>
+                    
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Omelette</a>
-                        <a class="dropdown-item" href="#">Chicken Noodle Soup</a>
-                        <a class="dropdown-item" href="#">Mac-n-Cheese</a>
+                        {% for recipe in recipes %}
+                        <a class="dropdown-item" href="/ingredients/{{recipe[0]}}">{{recipe[1]}}</a>
+                        {% endfor %}
                     </div>
+                    
                 </div>
             </center>
         </p>
