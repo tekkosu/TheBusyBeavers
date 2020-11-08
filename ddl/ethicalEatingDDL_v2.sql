@@ -4,7 +4,10 @@ CREATE TABLE Users(
 userID INT(50) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 userName varchar(70) NOT NULL,
 userPassword varchar(70) NOT NULL,
+userEmail varchar(70) NOT NULL,
 CONSTRAINT UNIQUE (userName)
+CONSTRAINT UNIQUE (userPassword)
+CONSTRAINT UNIQUE (userEmail)
 ) ENGINE=INNODB;
 
 CREATE TABLE Recipes(
@@ -99,3 +102,5 @@ INSERT INTO `Ingredients_EthicalIngredients` (`ethicalIngredientID`, `ingredient
 (3,1),
 (2,3);
 
+INSERT INTO `Users` (`userID`, `userName`, `userPassword`, `userEmail`) VALUES
+(1, 'lyeh9', '1234', 'lyeh9@gmail.com')
