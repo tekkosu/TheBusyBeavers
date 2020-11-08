@@ -41,6 +41,10 @@
                 <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Alternatives
                 </button>
+            		{% for alternative in alternatives %}
+                        <a class="dropdown-item" value="{{ alternative[0] }}">
+                        {{alternative[1]}}</a>
+                        {% endfor %}
             </td>
             <td>
                 <input type="checkbox" id="useAlt" value=1>
@@ -48,8 +52,10 @@
         </tr>
    	{% endfor %}
         </tbody>
-        
     </table>
+    <div>
+    	<button type="submit" onclick="" class="btn btn-primary">Show Ingredients with Alternatives</button>
+    </div>
     </div>
         </p>
     </div>
