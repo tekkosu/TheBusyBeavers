@@ -2,8 +2,7 @@
 <html> 
     <head> 
         <meta charset="UTF-8"> 
-        <title> Create Account </title> 
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">               
+        <title> Create Account </title>               
     </head> 
     <body></br></br></br></br></br> 
         <div align="center"> 
@@ -12,12 +11,12 @@
                 <h1 class="word">Create a New Account</h1> 
                 <h2 class="word">Join Ethical Eating Today!</h2>
              </div></br></br>
-                <form action="{{ url_for('createAccount') }}" method="post"> 
+                <form action="{{url_for('createAccount')}}" method="post"> 
                     <input id="username" name="username" type="text" placeholder="Enter Your Username" class="textbox"/></br></br> 
                     <input id="password" name="password" type="password" placeholder="Enter Your Password" class="textbox"/></br></br> 
                     <input id="email" name="email" type="text" placeholder="Enter Your Email Address" class="textbox"/></br></br> 
-                    <input type="submit" class="btn" value="Create Account"></br> 
-                </form></br></br> 
+                    <input type="submit" class="btn" value="Create Account"></br>
+		</form></br></br>
             <p class="bottom">Already have an account?  <a class="bottom" href="{{url_for('login')}}"> Log In here</a></p> 
 			<p class="bottom">Continue as guest?  <a class="bottom" href="{{url_for('login')}}"> Click here</a></p> 
           </div> 
