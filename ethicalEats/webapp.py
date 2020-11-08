@@ -1,7 +1,8 @@
-from flask import Flask, render_template
-from flask import request
-
+from flask import Flask, render_template, request, url_for, session, redirect
 from db_connector.db_connector import connect_to_database, execute_query
+from flask_mysqldb import MySQL
+import MySQLdb.cursors
+import re
 
 # Creates Flask instance
 webapp = Flask(__name__)
@@ -31,7 +32,7 @@ def ingredients(recipe_id):
     return render_template('ingredients.html', ingredients = ingredients_result, recipe = recipe_result)
 
 
-# Table attributes are: userID, userName userPassword
+# CONVERT THIS TO DB_CONNECT FORM LATER ON???
 @webapp.route('/createAccount', methods = ['GET', 'POST'])
 def createAccount():
 
@@ -43,9 +44,9 @@ def createAccount():
         email = request.form['userEmail']
 
         # check if the account exists via database
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)   # DBCONNECTOR EQUIVALENT CODE???
-        cursor.execute('SELECT * FROM Users WHERE userName = %s AND userPassword = %s', (username, password))   # DBCONNECTOR EQUIVALENT CODE???
-        acct = cursor.fetchone()   # DBCONNECTOR EQUIVALENT CODE???
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Users WHERE userName = %s AND userPassword = %s', (username, password))
+        acct = cursor.fetchone()
 
         if acct:
             msg = 'This account already exists.'
@@ -58,7 +59,7 @@ def createAccount():
 
         # else, there is no existing account and requirements are met for user info, add new account into 'Users' Table
         else:
-            cursor.execute('INSERT INTO Users VALUES (NULL, %s, %s, %s)', (username, password, email))   # DBCONNECTOR EQUIVALENT CODE???
+            cursor.execute('INSERT INTO Users VALUES (NULL, %s, %s, %s)', (username, password, email))
             mysql.connection.commit()   # DBCONNECTOR EQUIVALENT CODE???
             msg = 'Your account has been created.'
 
