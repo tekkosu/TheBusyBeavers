@@ -19,10 +19,10 @@ def index():
 def about():
 	return render_template("about.html")
 
-@webapp.route('/recipebook')
-def recipebook():
+@webapp.route('/recipebook/<int:user_id>')
+def recipebook(user_id):
     db_connection = connect_to_database()
-    query = "SELECT * from Recipes"
+    query = "SELECT * from Recipes where recipeID in (select recipeID from Recipes_Users where userID = %i)" % user_id
     result = execute_query(db_connection, query).fetchall()
     return render_template('recipebook.html', recipes=result)
 
