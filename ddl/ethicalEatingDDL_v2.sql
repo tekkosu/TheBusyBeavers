@@ -6,7 +6,8 @@ userName varchar(70) NOT NULL,
 userPassword varchar(70) NOT NULL,
 userEmail varchar(70) NOT NULL,
 CONSTRAINT UNIQUE (userName),
-CONSTRAINT UNIQUE (userPassword)
+CONSTRAINT UNIQUE (userPassword),
+CONSTRAINT UNIQUE (userEmail)
 ) ENGINE=INNODB;
 
 CREATE TABLE Recipes(
@@ -52,12 +53,10 @@ PRIMARY KEY (ethicalIngredientID, ingredientID)
 ) ENGINE=INNODB;
 
 -- Insertion statements for sample DB data
-INSERT INTO `Users` (`userID`, `userName`, `userPassword`) VALUES
-(1, 'holtze', 'password'),
-(2, 'tekk', 'strongpassword'),
-(3, 'jensent', 'p@ssword'),
-(4, 'yehl', 'strongp@ssword1');
 
+INSERT INTO `Users` (`userID`, `userName`, `userPassword`, `userEmail`) VALUES
+(1, 'yehl', 'password1', 'yehl@oregonstate.edu'),
+(2, 'holtze', 'password2', 'holtze@oregonstate.edu');
 
 INSERT INTO `Recipes` (`recipeID`, `recipeName`) VALUES
 (1, 'Omelette'),
