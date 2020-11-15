@@ -26,7 +26,7 @@ RUNNING FLASK
       - one time
             python -m flask run -h 0.0.0.0 -p #### (replace #### with port number)
       - persistent
-            gunicorn run:app -b 0.0.0.0:#### -D (replace #### with port number)
+            gunicorn run:webapp -b 0.0.0.0:#### -D (replace #### with port number)
 
 Resources:
 https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
