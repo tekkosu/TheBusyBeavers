@@ -1,2 +1,2 @@
-from ethicalEats import app
+from ethicalEats.webapp import webapp
 

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for, session, redirect
-from db_connector.db_connector import connect_to_database, execute_query
+from ethicalEats.db_connector import connect_to_database, execute_query
 #from flask_mysqldb import MySQL
 #import MySQLdb.cursors
 import re
@@ -9,6 +9,11 @@ webapp = Flask(__name__)
 
 
 @webapp.route('/')
+@webapp.route('/landing')
+def landing():
+    return render_template('landing.html')
+
+@webapp.route('/index')
 def index():
     db_connection = connect_to_database()
     query = "SELECT * from Recipes"
