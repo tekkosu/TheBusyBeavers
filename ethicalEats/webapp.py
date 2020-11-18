@@ -24,12 +24,33 @@ def index():
 def about():
 	return render_template("about.html")
 
+@webapp.route('/login')
+def login():
+    return render_template("login.html")
+
+@webapp.route('/user_login', methods=['POST', 'GET'])
+def user_login():
+    db_connection = connect_to_database()
+    if request.method == 'GET':
+        return render_template('landing.html')
+    elif request.method == 'POST':
+        userName = request.form['username']
+        userPassword = request.form['password']
+
+        userquery = 'SELECT * FROM Users where userName = %s and userPassword = %s'
+        data = (userName, userPassword)
+        result = execute_query(db_connection, userquery, data).fetchall()
+
+        recipequery = 'SELECT * FROM Recipes'
+        recipesresult = execute_query(db_connection, recipequery).fetchall()
+        return render_template('index_user.html', user=result, recipes=recipesresult)
+
 @webapp.route('/recipebook/<int:user_id>')
 def recipebook(user_id):
     db_connection = connect_to_database()
     query = "SELECT * from Recipes where recipeID in (select recipeID from Recipes_Users where userID = %i)" % user_id
     result = execute_query(db_connection, query).fetchall()
-    return render_template('recipebook.html', recipes=result)
+    return render_template('recipebook.html', recipes=result, userid=user_id)
 
 @webapp.route('/ingredients/<int:recipe_id>')
 def ingredients(recipe_id):
@@ -46,6 +67,20 @@ def ingredients(recipe_id):
     #return render_template('ingredients.html', ingredients = ingredients_result, recipe = recipe_result)
     return render_template('ingredients.html', ingredients = ingredients_result, recipe = recipe_result, alternative = alternative_result)
 
+@webapp.route('/ingredients_user/<int:recipe_id>')
+def ingredients_user(recipe_id):
+    db_connection = connect_to_database()
+    ingredients_query = "select * from Ingredients where ingredientID in (select ingredientID from Recipes_Ingredients where recipeID = %i)" % recipe_id
+    ingredients_result = execute_query(db_connection, ingredients_query).fetchall()
+
+    recipe_query = "select * from Recipes where recipeID = %i" % recipe_id
+    recipe_result = execute_query(db_connection, recipe_query).fetchall()
+
+    alternative_query = "SELECT ei.ethicalIngredientID, ei.ingredientName, ei.description FROM EthicalIngredients as ei INNER JOIN Ingredients_EthicalIngredients as iei ON ei.ethicalIngredientID = ei.ethicalIngredientID INNER JOIN Ingredients as i ON iei.ingredientID = i.ingredientID"
+    alternative_result = execute_query(db_connection, recipe_query).fetchall()
+
+    #return render_template('ingredients.html', ingredients = ingredients_result, recipe = recipe_result)
+    return render_template('ingredients.html', ingredients = ingredients_result, recipe = recipe_result, alternative = alternative_result)
 
 # CONVERT THIS TO DB_CONNECT FORM LATER ON???
 @webapp.route('/createAccount', methods = ['GET', 'POST'])

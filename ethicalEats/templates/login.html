@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+    <div class="container" align="center">
+        <br>
+        <br>
+        <br>
+        <br>
+        <p><h1 class="display-2">Ethical Eats User Login</h1></p><br>
+        <p>
+            <form id= "login" method="POST" action="/user_login">
+                <label for="username">User Name: </label><input type="text" placeholder="User Name" id="username" name="username">
+                <br>
+                <label for="password">Password: </label><input type="text" placeholder="Password" id="password" name="password">
+                <br>
+                <input type="submit" value="Submit">
+            </form>
+        </p>
+    </div>
+
+{% endblock %}

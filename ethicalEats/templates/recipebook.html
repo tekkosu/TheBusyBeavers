@@ -12,7 +12,7 @@
             <br><br>
             <center>
                 <div>
-                    <p>Recipe Book</p>
+                    <p>Recipe Book for userID {{ userid }}</p>
                     <table>
                         <tr>
                             <th>Recipe ID</th>
@@ -22,7 +22,7 @@
                         <tr>
                             <td>{{ row[0] }}</td>
                             <td>{{ row[1] }}</td>
-                            <td><input type="button" name="View" value="View" onclick="window.location = '/ingredients/{{row[0]}}'"></td>
+                            <td><input type="button" name="View" value="View" onclick="window.location = '/ingredients_user/{{row[0]}}'"></td>
                         </tr>
                         {% endfor %}
                     </table>
