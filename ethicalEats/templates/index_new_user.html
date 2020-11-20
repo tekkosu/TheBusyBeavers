@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+    <div class="container" align="center">
+        <br>
+        <br>
+        <br>
+        <br>
+        <p><h1 class="display-2">Ethical Eats</h1></p><br>
+        <p>
+            Get started by adding ingredients and recipes to your recipe book!
+            <br>
+            <a href="recipebook/">My Recipe Book</a>
+            <br>
+            <div class="btn-group">
+                    <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Select A Recipe
+                    </button>
+                    
+                    <div class="dropdown-menu">
+                        {% for recipe in recipes %}
+                        <a class="dropdown-item" href="/ingredients/{{recipe[0]}}">{{recipe[1]}}</a>
+                        {% endfor %}
+                    </div>
+                    
+                </div>
+        </p>
+    </div>
+
+{% endblock %}
