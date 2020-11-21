@@ -22,7 +22,7 @@
                         <tr>
                             <td>{{ row[0] }}</td>
                             <td>{{ row[1] }}</td>
-                            <td><input type="button" name="View" value="View" onclick="window.location = '/ingredients_user/{{row[0]}}'"></td>
+                            <td><input type="button" name="View" value="View" onclick="window.location = '/ingredients_user/{{row[0]}}/{{userid}}'"></td>
                         </tr>
                         {% endfor %}
                     </table>

@@ -47,8 +47,8 @@ def ingredients(recipe_id):
     #return render_template('ingredients.html', ingredients = ingredients_result, recipe = recipe_result)
     return render_template('ingredients.html', ingredients = ingredients_result, recipe = recipe_result, alternative = alternative_result)
 
-@webapp.route('/ingredients_user/<int:recipe_id>')
-def ingredients_user(recipe_id):
+@webapp.route('/ingredients_user/<int:recipe_id>/<int:user_id>')
+def ingredients_user(recipe_id, user_id):
     db_connection = connect_to_database()
     ingredients_query = "select * from Ingredients where ingredientID in (select ingredientID from Recipes_Ingredients where recipeID = %i)" % recipe_id
     ingredients_result = execute_query(db_connection, ingredients_query).fetchall()
@@ -60,7 +60,29 @@ def ingredients_user(recipe_id):
     alternative_result = execute_query(db_connection, recipe_query).fetchall()
 
     #return render_template('ingredients.html', ingredients = ingredients_result, recipe = recipe_result)
-    return render_template('ingredients.html', ingredients = ingredients_result, recipe = recipe_result, alternative = alternative_result)
+    return render_template('ingredients_user.html', ingredients = ingredients_result, recipe = recipe_result, alternative = alternative_result, userid = user_id)
+
+@webapp.route('/save_recipe/<int:recipe_id>/<int:user_id>')
+def save_recipe(recipe_id, user_id):
+    db_connection = connect_to_database()
+
+    dup_verify = 'SELECT count(*) FROM Recipes_Users WHERE userID = %i and recipeID = %i' % (user_id, recipe_id)
+    dup_result = execute_query(db_connection, dup_verify).fetchone()
+    if dup_result[0] == 0:
+        add_recipe_query = 'insert into Recipes_Users VALUES (%i, %i)' % (user_id, recipe_id)
+        execute_query(db_connection, add_recipe_query)
+    
+    ingredients_query = "select * from Ingredients where ingredientID in (select ingredientID from Recipes_Ingredients where recipeID = %i)" % recipe_id
+    ingredients_result = execute_query(db_connection, ingredients_query).fetchall()
+
+    recipe_query = "select * from Recipes where recipeID = %i" % recipe_id
+    recipe_result = execute_query(db_connection, recipe_query).fetchall()
+
+    alternative_query = "SELECT ei.ethicalIngredientID, ei.ingredientName, ei.description FROM EthicalIngredients as ei INNER JOIN Ingredients_EthicalIngredients as iei ON ei.ethicalIngredientID = ei.ethicalIngredientID INNER JOIN Ingredients as i ON iei.ingredientID = i.ingredientID"
+    alternative_result = execute_query(db_connection, recipe_query).fetchall()
+
+    #return render_template('ingredients.html', ingredients = ingredients_result, recipe = recipe_result)
+    return render_template('ingredients_user.html', ingredients = ingredients_result, recipe = recipe_result, alternative = alternative_result, userid = user_id)
 
 @webapp.route('/login')
 def login():

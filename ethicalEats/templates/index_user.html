@@ -22,7 +22,7 @@
                     
                     <div class="dropdown-menu">
                         {% for recipe in recipes %}
-                        <a class="dropdown-item" href="/ingredients/{{recipe[0]}}">{{recipe[1]}}</a>
+                        <a class="dropdown-item" href="/ingredients_user/{{recipe[0]}}/{{user[0][0]}}">{{recipe[1]}}</a>
                         {% endfor %}
                     </div>
                     
