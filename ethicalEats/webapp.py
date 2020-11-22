@@ -35,7 +35,7 @@ def recipebook(user_id):
 @webapp.route('/ingredients/<int:recipe_id>')
 def ingredients(recipe_id):
     db_connection = connect_to_database()
-    ingredients_query = "select * from Ingredients where ingredientID in (select ingredientID from Recipes_Ingredients where recipeID = %i)" % recipe_id
+    ingredients_query = "SELECT i.ingredientID, i.ingredientName, i.ethicalIssue, i.ethicalDescription, ei.ingredientName FROM Ingredients as i LEFT JOIN Ingredients_EthicalIngredients as ie ON ie.ingredientID = i.ingredientID LEFT JOIN EthicalIngredients as ei ON ie.ethicalIngredientID = ei.ethicalIngredientID INNER JOIN Recipes_Ingredients as ri ON i.ingredientID = ri.ingredientID WHERE ri.recipeID = %i" % recipe_id
     ingredients_result = execute_query(db_connection, ingredients_query).fetchall()
 
     recipe_query = "select * from Recipes where recipeID = %i" % recipe_id
@@ -50,7 +50,7 @@ def ingredients(recipe_id):
 @webapp.route('/ingredients_user/<int:recipe_id>/<int:user_id>')
 def ingredients_user(recipe_id, user_id):
     db_connection = connect_to_database()
-    ingredients_query = "select * from Ingredients where ingredientID in (select ingredientID from Recipes_Ingredients where recipeID = %i)" % recipe_id
+    ingredients_query = "SELECT i.ingredientID, i.ingredientName, i.ethicalIssue, i.ethicalDescription, ei.ingredientName FROM Ingredients as i LEFT JOIN Ingredients_EthicalIngredients as ie ON ie.ingredientID = i.ingredientID LEFT JOIN EthicalIngredients as ei ON ie.ethicalIngredientID = ei.ethicalIngredientID INNER JOIN Recipes_Ingredients as ri ON i.ingredientID = ri.ingredientID WHERE ri.recipeID = %i" % recipe_id
     ingredients_result = execute_query(db_connection, ingredients_query).fetchall()
 
     recipe_query = "select * from Recipes where recipeID = %i" % recipe_id
