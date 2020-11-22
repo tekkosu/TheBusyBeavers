@@ -10,19 +10,28 @@
     <div class="container">
         <br>
         <br>
-
           <div align="center"> 
              <div class="header"> 
                 <h1 class="word">Create a New Account</h1>
+                </br>
                 <h2 class="word">Join Ethical Eating Today!</h2>
-             </div></br></br>
-                <form id= "createAccount" action="/new_user_login" method="post"> 
-                    <input id="username" name="username" type="text" placeholder="Enter Your Username" class="textbox"/></br></br> 
-                    <input id="password" name="password" type="text" placeholder="Enter Your Password" class="textbox"/></br></br> 
-                    <input id="email" name="email" type="text" placeholder="Enter Your Email" class="textbox"/></br></br> 
-                    <input type="submit" class="btn" value="Create Account"></br>
+             </div></br>
+                <form id= "createAccount" action="/new_user_login" method="POST"> 
+                    <input id="username" name="username" type="text" placeholder="Enter Your Username" class="textbox"/>
+                    </br></br> 
+                    <input id="password" name="password" type="text" placeholder="Enter Your Password" class="textbox"/>
+                    </br></br>
+                    <input id="email" name="email" type="text" placeholder="Enter Your Email" class="textbox"/>
+                    </br></br>
+                    <small><small>
+                    <dl>
+                        <dt>The username and password must be at least 4 characters long</dt>
+                        <dt>The email must include both a '@' and'.' (i.e. jsmith@gmail.com)</dt>
+                    </dl>
+                    </small></small>
+                    <input type="submit" value="Submit"></br>
 		        </form></br></br>
-            <p class="bottom">Already have an account?  <a class="bottom" href="/login"> Log In here</a></p> 
+            <p class="bottom">Already have an account?  <a class="bottom" href="/login"> Sign in here</a></p> 
 			<p class="bottom">Continue as guest?  <a class="bottom" href="/index"> Click here</a></p> 
           </div> 
 
