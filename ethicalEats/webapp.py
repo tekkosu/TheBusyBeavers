@@ -30,7 +30,11 @@ def recipebook(user_id):
     db_connection = connect_to_database()
     query = "SELECT * from Recipes where recipeID in (select recipeID from Recipes_Users where userID = %i)" % user_id
     result = execute_query(db_connection, query).fetchall()
-    return render_template('recipebook.html', recipes=result, userid=user_id)
+
+    user_query = 'SELECT * FROM Users where userID = %i' % user_id
+    user_result = execute_query(db_connection, user_query).fetchall()
+
+    return render_template('recipebook.html', recipes=result, userid=user_id, user = user_result)
 
 @webapp.route('/ingredients/<int:recipe_id>')
 def ingredients(recipe_id):
@@ -71,6 +75,7 @@ def save_recipe(recipe_id, user_id):
     if dup_result[0] == 0:
         add_recipe_query = 'insert into Recipes_Users VALUES (%i, %i)' % (user_id, recipe_id)
         execute_query(db_connection, add_recipe_query)
+        flash('Recipe Added!')
     
     ingredients_query = "select * from Ingredients where ingredientID in (select ingredientID from Recipes_Ingredients where recipeID = %i)" % recipe_id
     ingredients_result = execute_query(db_connection, ingredients_query).fetchall()
