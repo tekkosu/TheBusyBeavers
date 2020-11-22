@@ -1,13 +1,10 @@
 from flask import Flask, render_template, request, url_for, session, redirect, flash
 from ethicalEats.db_connector import connect_to_database, execute_query
-#from flask_mysqldb import MySQL
-#import MySQLdb.cursors
 import re
 
 # Creates Flask instance
 webapp = Flask(__name__)
-webapp.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-
+webapp.secret_key = b'_5#y2L"F4Q8z\n\xec]/'   # key for flash alerts
 
 @webapp.route('/')
 @webapp.route('/landing')
@@ -102,22 +99,24 @@ def user_login():
         userName = request.form['username']
         userPassword = request.form['password']
 
-        userquery = 'SELECT * FROM Users where userName = %s and userPassword = %s'
+        try:
+            userquery = 'SELECT * FROM Users where userName = %s and userPassword = %s'
 
-        # login info matches an existing account
-        if userquery:
-            data = (userName, userPassword)
-            result = execute_query(db_connection, userquery, data).fetchall()
+            # login info matches an existing account
+            if userquery:
+                data = (userName, userPassword)
+                result = execute_query(db_connection, userquery, data).fetchall()
 
-            recipequery = 'SELECT * FROM Recipes'
-            recipesresult = execute_query(db_connection, recipequery).fetchall()
+                recipequery = 'SELECT * FROM Recipes'
+                recipesresult = execute_query(db_connection, recipequery).fetchall()
+
+                flash('Login successful. Welcome back!', 'success')
 
         # Note: keeps saying UndefinedError: tuple object has no element 0
-        # login info does not match any existing accounts
-        else:
-            flash('Incorrect login/password. Account not found.')
-            return redirect(request.url)   # shows flash message and stays on current page
-        
+        except:
+            flash('Incorrect login/password. Account not found, please try again.', 'warning')
+            return render_template('login.html')
+            
         return render_template('index_user.html', user=result, recipes=recipesresult)
 
 @webapp.route('/createAccount')
@@ -135,26 +134,35 @@ def new_user_login():
         userName = request.form['username']
         userPassword = request.form['password']
         userEmail = request.form['email']
-        
-        # existAcctQuery = 'SELECT * FROM Users WHERE userName = %s'
 
-        # # login info matches an existing account
-        # if existAcctQuery:
-        #     data = (userName)
-        #     failed = execute_query(db_connection, existAcctQuery, data).fetchall()
-        #     flash('This username already exists. Please try another.')
-        #     # return redirect('createAccount.html')   # shows flash message and stays on current page
-        #     return redirect('createAccount.html', user = failed)
-        
-        # # no existing accounts with provided username, create the new account
-        # else:
-        acctQuery = 'INSERT INTO Users (userName, userPassword, userEmail) VALUES (%s,%s,%s)'
-        data = (userName, userPassword, userEmail)
-        passed = execute_query(db_connection, acctQuery, data)
-        flash('Your account has been created. Welcome to Ethical Eats!')
+        try:
+            usernameExists = 'SELECT userName FROM Users WHERE userName = %s'
 
-        # Note: Should we combine index_user and index_new_user or keep them separate?
-        return render_template('index_new_user.html', user = passed)
+            if len(userName) < 4:
+                flash('Username too short. Please try again.', 'warning')
+                return render_template("createAccount.html")
+            
+            elif len(userPassword) < 4:
+                flash('Password too short. Please try again.', 'warning')
+                return render_template("createAccount.html")
+            
+            elif ('@' not in userEmail) and ('.' not in userEmail):
+                flash('Email entry invalid. Please try again.', 'warning')
+                return render_template("createAccount.html")
+
+            elif usernameExists is not None:
+                acctQuery = 'INSERT INTO Users (userName, userPassword, userEmail) VALUES (%s,%s,%s)'
+                data = (userName, userPassword, userEmail)
+                result = execute_query(db_connection, acctQuery, data)
+                flash('Your account has been successfully registered. Welcome!', 'success')
+
+        # if there is still an error after all requirements are met, the username must already exist in the database
+        except:
+            flash('User already exists. Please try again.', 'warning')
+            return render_template("createAccount.html")
+
+        # TO DO LIST: for creating an account, query for the user ID and send it as a variable in the flask render
+        return render_template('index_new_user.html', user = result)
 
 @webapp.route('/continueGuest')
 def continueGuest():
