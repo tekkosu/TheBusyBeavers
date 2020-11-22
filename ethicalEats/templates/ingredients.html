@@ -44,7 +44,7 @@
                 </select>
             </td>
             <td>
-                <input type="checkbox" id="useAlt" value=1>
+                <input type="checkbox" id="useAlt" value=1 text=alt?>
             </td>
         </tr>
    	{% endfor %}
@@ -57,5 +57,16 @@
         </p>
     </div>
 
+<script>
+    $('#table td').each(function(){
+        if($(this).text() ==1) {
+            $(this).css('background-color', 'yellow');
+            $(this).text("Ethical Alert Found!");
+        }
+        if($(this).text()==0){
+            $(this).text("");
+        }
+    });
+</script>
 
 {% endblock %}
