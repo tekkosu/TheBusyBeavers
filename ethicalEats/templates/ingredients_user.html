@@ -16,11 +16,13 @@
     <h2>Ingredients in {{ recipe[0][1] }}</h2>
     <a class="btn btn-secondary btn-lg" href="/save_recipe/{{recipe[0][0]}}/{{userid}}" role="button">Save to Recipe Book</a>
 
-    <p></p>
-    <table class="table table-striped">
+    <div align="left">
+   <button class="btn btn-primary" onclick="location.href='/user_login'">Back to Recipes</button>
+   </div>
+   <p></p>
+    <table class="table table-striped" id="table">
       <thead class="thead-dark">
         <tr>
-          <th scope="col">ID</th>
           <th scope="col">Ingredient</th>
           <th scope="col">Ethical Alert</th>
           <th scope="col">Ethical Description</th>
@@ -31,35 +33,55 @@
         <tbody>
     {% for row in ingredients %}
         <tr>
-            <th scope="row">{{row[0]}}</th>
-            <td>{{row[1]}}</td>
+            <th scope="row" id="ingredient">{{row[1]}}</th>
+            <td id="alert">{{row[2]}}</td> 
 <!--        <td>&#10071;</td>
             <td>&#9989;</td>
 -->            
-            <td>{{row[2]}}</td>
             <td>{{row[3]}}</td>
-
             <td>
-                <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Alternatives
-                </button>
-            		{% for alternative in alternatives %}
-                        <a class="dropdown-item" value="{{ alternative[0] }}">
-                        {{alternative[1]}}</a>
-                        {% endfor %}
+                <select id="alts" class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <option selected>Alternative</option>
+                    {% for alt in alternative %}
+                      <option value ="{{alt[0]}}">{{alt[1]}}</option>
+                    {% endfor %}
+                </select>
             </td>
             <td>
-                <input type="checkbox" id="useAlt" value=1>
+                <input type="checkbox" name="usealt" id="usealt"> Use</input>
             </td>
         </tr>
-   	{% endfor %}
+    {% endfor %}
         </tbody>
     </table>
     <div>
-    	<button type="submit" onclick="" class="btn btn-primary">Show Ingredients with Alternatives</button>
+<!--        <button type="submit" onclick="" class="btn btn-primary" id="show">Show Ingredients with Alternatives</button>
+-->
     </div>
     </div>
         </p>
     </div>
+
+<!-- LOGIC FOR ICON POPUP -->
+<script>
+    $('#table td').each(function(){
+        if($(this).text() ==1) {
+            $(this).html("&#10071;");
+        }
+        if($(this).text()==0){
+            $(this).html("&#9989;");
+        }
+    });
+</script>
+
+<!-- LOGIC FOR SWAPPING ALTERNATIVES -->
+<script>
+$(document).ready(function(){
+  $("#usealt").click(function(){
+    $("#ingredient").text("pikachu")
+  });
+});
+</script>
+
 
 {% endblock %}
