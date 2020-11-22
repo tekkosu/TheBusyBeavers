@@ -64,11 +64,10 @@
 <script>
     $('#table td').each(function(){
         if($(this).text() ==1) {
-            $(this).css('background-color', 'yellow');
-            $(this).text("Ethical Alert Found!");
+            $(this).html("&#10071;");
         }
         if($(this).text()==0){
-            $(this).text("");
+            $(this).html("&#9989;");
         }
     });
 </script>
@@ -76,7 +75,7 @@
 <script>
 $(document).ready(function(){
   $("#usealt").click(function(){
-    $("#ingredient").text($("#alts").text(value))
+    $("#ingredient").text("pikachu")
   });
 });
 </script>
