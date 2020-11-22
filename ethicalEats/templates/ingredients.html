@@ -16,6 +16,10 @@
                   <div class="container">
     <h2>Ingredients in {{ recipe[0][1] }}</h2>
    <p></p>
+   <div align="left">
+   <button class="btn btn-primary" onclick="location.href='/'">Back to Recipes</button>
+   </div>
+   <p></p>
     <table class="table table-striped" id="table">
       <thead class="thead-dark">
         <tr>
@@ -29,7 +33,7 @@
         <tbody>
     {% for row in ingredients %}
         <tr>
-            <th scope="row">{{row[1]}}</th>
+            <th scope="row" id="ingredient">{{row[1]}}</th>
             <td id="alert">{{row[2]}}</td> 
 <!--        <td>&#10071;</td>
             <td>&#9989;</td>
@@ -44,14 +48,14 @@
                 </select>
             </td>
             <td>
-                <input type="checkbox" id="useAlt" value=1 text=alt?>
+                <input type="checkbox" name="usealt" id="usealt"> Use</input>
             </td>
         </tr>
    	{% endfor %}
         </tbody>
     </table>
     <div>
-    	<button type="submit" onclick="" class="btn btn-primary">Show Ingredients with Alternatives</button>
+    	<button type="submit" onclick="" class="btn btn-primary" id="show">Show Ingredients with Alternatives</button>
     </div>
     </div>
         </p>
@@ -68,5 +72,14 @@
         }
     });
 </script>
+
+<script>
+$(document).ready(function(){
+  $("#usealt").click(function(){
+    $("#ingredient").text($("#alts").text(value))
+  });
+});
+</script>
+
 
 {% endblock %}
