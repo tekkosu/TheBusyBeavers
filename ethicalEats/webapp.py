@@ -56,7 +56,7 @@ def ingredients_user(recipe_id, user_id):
     recipe_query = "select * from Recipes where recipeID = %i" % recipe_id
     recipe_result = execute_query(db_connection, recipe_query).fetchall()
 
-    alternative_query = "SELECT ei.ethicalIngredientID, ei.ingredientName, ei.description FROM EthicalIngredients as ei INNER JOIN Ingredients_EthicalIngredients as iei ON ei.ethicalIngredientID = ei.ethicalIngredientID INNER JOIN Ingredients as i ON iei.ingredientID = i.ingredientID"
+    alternative_query = "SELECT * FROM EthicalIngredients"
     alternative_result = execute_query(db_connection, recipe_query).fetchall()
 
     #return render_template('ingredients.html', ingredients = ingredients_result, recipe = recipe_result)
@@ -78,7 +78,7 @@ def save_recipe(recipe_id, user_id):
     recipe_query = "select * from Recipes where recipeID = %i" % recipe_id
     recipe_result = execute_query(db_connection, recipe_query).fetchall()
 
-    alternative_query = "SELECT ei.ethicalIngredientID, ei.ingredientName, ei.description FROM EthicalIngredients as ei INNER JOIN Ingredients_EthicalIngredients as iei ON ei.ethicalIngredientID = ei.ethicalIngredientID INNER JOIN Ingredients as i ON iei.ingredientID = i.ingredientID"
+    alternative_query = "SELECT * FROM EthicalIngredients"
     alternative_result = execute_query(db_connection, recipe_query).fetchall()
 
     #return render_template('ingredients.html', ingredients = ingredients_result, recipe = recipe_result)
