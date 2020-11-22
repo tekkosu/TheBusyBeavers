@@ -5,9 +5,7 @@ userID INT(50) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 userName varchar(70) NOT NULL,
 userPassword varchar(70) NOT NULL,
 userEmail varchar(70) NOT NULL,
-CONSTRAINT UNIQUE (userName),
-CONSTRAINT UNIQUE (userPassword),
-CONSTRAINT UNIQUE (userEmail)
+CONSTRAINT UNIQUE (userName)
 ) ENGINE=INNODB;
 
 CREATE TABLE Recipes(
