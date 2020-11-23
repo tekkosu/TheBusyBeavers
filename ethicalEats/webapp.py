@@ -74,7 +74,6 @@ def save_recipe(recipe_id, user_id):
     alternative_query = "SELECT * FROM EthicalIngredients"
     alternative_result = execute_query(db_connection, recipe_query).fetchall()
 
-    #return render_template('ingredients.html', ingredients = ingredients_result, recipe = recipe_result)
     return render_template('ingredients_user.html', ingredients = ingredients_result, recipe = recipe_result, alternative = alternative_result, userid = user_id)
 
 @webapp.route('/login')

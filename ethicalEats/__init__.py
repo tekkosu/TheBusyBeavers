@@ -2,4 +2,4 @@ from flask import Flask
 
 app = Flask(__name__)
 
-from ethicalEats import routes
+from ethicalEats import webapp
