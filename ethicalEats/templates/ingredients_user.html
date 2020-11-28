@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block body %}
+<!-- ingredients_user.html -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <div class="container">
@@ -18,7 +19,7 @@
     <a class="btn btn-secondary btn-lg" href="/save_recipe/{{recipe[0][0]}}/{{userid}}" role="button">Save to Recipe Book</a>
 
     <div align="left">
-   <button class="btn btn-primary" onclick="location.href='/user_login'">Back to Recipes</button>
+   <a class="btn btn-primary" href="/user_login/{{userid}}" role="button">Back to Recipes</a>
    </div>
    <p></p>
     <table class="table table-striped" id="table">
@@ -35,28 +36,9 @@
     {% for row in ingredients %}
         <tr>
             <th scope="row" id="ingredient">{{row[1]}}</th>
-            <td id="alert">{{row[2]}}</td> 
-<!--        <td>&#10071;</td>
-            <td>&#9989;</td>
--->            
+            <td id="alert">{{row[2]}}</td>          
             <td>{{row[3]}}</td>
             <td id="alt">{{row[4]}}</td>
-                <!--
-            }
-            }
-            }
-            <td>
-
-                <select id="alts" class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <option selected>Alternative</option>
-                    {% for alt in alternative %}
-                      <option value ="{{alt[0]}}">{{alt[1]}}</option>
-                    {% endfor %}
-                </select>
-            
-
-            </td>
-            -->
             <td>
                 <input type="checkbox" name="usealt" id="usealt"> Use</input>
             </td>
@@ -64,10 +46,6 @@
     {% endfor %}
         </tbody>
     </table>
-    <div>
-<!--        <button type="submit" onclick="" class="btn btn-primary" id="show">Show Ingredients with Alternatives</button>
--->
-    </div>
     </div>
         </p>
     </div>

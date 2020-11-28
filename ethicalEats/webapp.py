@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, url_for, session, redirect, flash
 from ethicalEats.db_connector import connect_to_database, execute_query
+#from db_connector.db_connector import connect_to_database, execute_query
 import re
 
 # Creates Flask instance
@@ -52,7 +53,7 @@ def ingredients_user(recipe_id, user_id):
     recipe_query = "select * from Recipes where recipeID = %i" % recipe_id
     recipe_result = execute_query(db_connection, recipe_query).fetchall()
 
-    return render_template('ingredients.html', ingredients = ingredients_result, recipe = recipe_result)
+    return render_template('ingredients_user.html', ingredients = ingredients_result, recipe = recipe_result, userid = user_id)
 
 @webapp.route('/save_recipe/<int:recipe_id>/<int:user_id>')
 def save_recipe(recipe_id, user_id):
@@ -108,6 +109,19 @@ def user_login():
             return render_template('login.html')
             
         return render_template('index_user.html', user=result, recipes=recipesresult)
+
+@webapp.route('/user_login/<int:user_id>')
+def user(user_id):
+    db_connection = connect_to_database()
+    userID = user_id
+    
+    userquery = 'SELECT * FROM Users WHERE userID = %i' % user_id
+    result = execute_query(db_connection, userquery).fetchall()
+
+    recipequery = 'SELECT * FROM Recipes'
+    recipesresult = execute_query(db_connection, recipequery).fetchall()
+    
+    return render_template('index_user.html', user=result, recipes=recipesresult )
 
 @webapp.route('/createAccount')
 def createAccount():
