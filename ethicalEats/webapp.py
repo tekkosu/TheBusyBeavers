@@ -67,16 +67,13 @@ def save_recipe(recipe_id, user_id):
         flash('This recipe has been added for future lookup from your recipe book!', 'success')
     else:
         flash('This recipe is already in your recipe book!', 'warning')
-    ingredients_query = "select * from Ingredients where ingredientID in (select ingredientID from Recipes_Ingredients where recipeID = %i)" % recipe_id
+    ingredients_query = "SELECT i.ingredientID, i.ingredientName, i.ethicalIssue, i.ethicalDescription, ei.ingredientName FROM Ingredients as i LEFT JOIN Ingredients_EthicalIngredients as ie ON ie.ingredientID = i.ingredientID LEFT JOIN EthicalIngredients as ei ON ie.ethicalIngredientID = ei.ethicalIngredientID INNER JOIN Recipes_Ingredients as ri ON i.ingredientID = ri.ingredientID WHERE ri.recipeID = %i" % recipe_id
     ingredients_result = execute_query(db_connection, ingredients_query).fetchall()
 
     recipe_query = "select * from Recipes where recipeID = %i" % recipe_id
     recipe_result = execute_query(db_connection, recipe_query).fetchall()
 
-    alternative_query = "SELECT * FROM EthicalIngredients"
-    alternative_result = execute_query(db_connection, recipe_query).fetchall()
-
-    return render_template('ingredients_user.html', ingredients = ingredients_result, recipe = recipe_result, alternative = alternative_result, userid = user_id)
+    return render_template('ingredients_user.html', ingredients = ingredients_result, recipe = recipe_result, userid = user_id)
 
 @webapp.route('/login')
 def login():
