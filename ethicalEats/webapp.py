@@ -64,8 +64,9 @@ def save_recipe(recipe_id, user_id):
     if dup_result[0] == 0:
         add_recipe_query = 'insert into Recipes_Users VALUES (%i, %i)' % (user_id, recipe_id)
         execute_query(db_connection, add_recipe_query)
-        flash('This recipe has been added for future lookup from your recipe book!')
-    
+        flash('This recipe has been added for future lookup from your recipe book!', 'success')
+    else:
+        flash('This recipe is already in your recipe book!', 'warning')
     ingredients_query = "select * from Ingredients where ingredientID in (select ingredientID from Recipes_Ingredients where recipeID = %i)" % recipe_id
     ingredients_result = execute_query(db_connection, ingredients_query).fetchall()
 
