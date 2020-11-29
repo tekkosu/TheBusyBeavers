@@ -159,6 +159,10 @@ def new_user_login():
                 acctQuery = 'INSERT INTO Users (userName, userPassword, userEmail) VALUES (%s,%s,%s)'
                 data = (userName, userPassword, userEmail)
                 result = execute_query(db_connection, acctQuery, data)
+
+                recipequery = 'SELECT * FROM Recipes'
+                recipesresult = execute_query(db_connection, recipequery).fetchall()
+
                 flash('Your account has been successfully registered. Welcome!', 'success')
 
         # if there is still an error after all requirements are met, the username must already exist in the database
@@ -167,7 +171,7 @@ def new_user_login():
             return render_template("createAccount.html")
 
         # TO DO LIST: for creating an account, query for the user ID and send it as a variable in the flask render
-        return render_template('index_new_user.html', user = result)
+        return render_template('index_new_user.html', user = result, recipes=recipesresult)
 
 @webapp.route('/continueGuest')
 def continueGuest():
