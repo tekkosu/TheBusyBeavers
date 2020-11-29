@@ -64,8 +64,9 @@ def save_recipe(recipe_id, user_id):
     if dup_result[0] == 0:
         add_recipe_query = 'insert into Recipes_Users VALUES (%i, %i)' % (user_id, recipe_id)
         execute_query(db_connection, add_recipe_query)
-        flash('This recipe has been added for future lookup from your recipe book!')
-    
+        flash('This recipe has been added for future lookup from your recipe book!', 'success')
+    else:
+        flash('This recipe is already in your recipe book!', 'warning')
     ingredients_query = "select * from Ingredients where ingredientID in (select ingredientID from Recipes_Ingredients where recipeID = %i)" % recipe_id
     ingredients_result = execute_query(db_connection, ingredients_query).fetchall()
 
@@ -158,6 +159,10 @@ def new_user_login():
                 acctQuery = 'INSERT INTO Users (userName, userPassword, userEmail) VALUES (%s,%s,%s)'
                 data = (userName, userPassword, userEmail)
                 result = execute_query(db_connection, acctQuery, data)
+
+                recipequery = 'SELECT * FROM Recipes'
+                recipesresult = execute_query(db_connection, recipequery).fetchall()
+
                 flash('Your account has been successfully registered. Welcome!', 'success')
 
         # if there is still an error after all requirements are met, the username must already exist in the database
@@ -166,7 +171,7 @@ def new_user_login():
             return render_template("createAccount.html")
 
         # TO DO LIST: for creating an account, query for the user ID and send it as a variable in the flask render
-        return render_template('index_new_user.html', user = result)
+        return render_template('index_new_user.html', user = result, recipes=recipesresult)
 
 @webapp.route('/continueGuest')
 def continueGuest():
