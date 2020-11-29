@@ -67,6 +67,18 @@
     </div>
         </p>
     </div>
+    
+<!-- LOGIC FOR DISABLING CHECKBOX -->
+<script>
+    $('document').ready(function(){
+        $('#table td').each(function(){
+            if($(this).text() =='None') {
+               $(this).next().css('background-color', 'lightgray');
+               $(this).next().attr('disabled', true);
+            }
+        })
+    });
+</script>
 
 <!-- LOGIC FOR ICON POPUP -->
 <script>
