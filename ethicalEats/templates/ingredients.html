@@ -7,6 +7,23 @@
 <!-- ingredients.html -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<!-- LOGIC FOR SWAPPING ALTERNATIVES -->
+<script>
+    function swapIngredient(ingredientName, altName){
+        if (altName != 'None'){
+            var ingredient;        
+            var edit;
+
+            $('#table td').each(function(){
+                ingredient = $(this).text();
+                edit = ingredient.trim();
+                if (edit == ingredientName) {
+                    $(this).text(altName);
+                }
+        })}
+        }
+</script>
+
     <div class="container">
         <br>
         <br>
@@ -34,44 +51,42 @@
         <tbody>
     {% for row in ingredients %}
         <tr>
-            <th scope="row" id="ingredient">{{row[1]}}</th>
+            <td scope="row" id="ingredient">{{row[1]}}</th>
             <td id="alert">{{row[2]}}</td> 
             <td>{{row[3]}}</td>
             <td id="alt">{{row[4]}}</td>
             <td>
-                <input type="checkbox" name="usealt" id="usealt"> Use</input>
+                <input type="checkbox" name="usealt" id="usealt" onclick="swapIngredient('{{row[1]}}','{{row[4]}}')"> Use</input>
             </td>
         </tr>
    	{% endfor %}
         </tbody>
     </table>
-    <div>
-<!--    	<button type="submit" onclick="" class="btn btn-primary" id="show">Show Ingredients with Alternatives</button>
--->
     </div>
     </div>
-        </p>
-    </div>
+
+<!-- LOGIC FOR DISABLING CHECKBOX -->
+<script>
+    $('document').ready(function(){
+        $('#table td').each(function(){
+            if($(this).text() =='None') {
+               $(this).next().css('background-color', 'lightgray');
+               $(this).next().attr('disabled', true);
+            }
+        })
+    });
+</script>
 
 <!-- LOGIC FOR ICON POPUP -->
 <script>
     $('#table td').each(function(){
-        if($(this).text() ==1) {
+        if ($(this).text() ==1) {
             $(this).html("&#10071;");
         }
         if($(this).text()==0){
             $(this).html("&#9989;");
         }
     });
-</script>
-
-<!-- LOGIC FOR SWAPPING ALTERNATIVES -->
-<script>
-$(document).ready(function(){
-  $("#usealt").click(function(){
-    $("#ingredient").text($("#alt").text())
-  });
-});
 </script>
 
 

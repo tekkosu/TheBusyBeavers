@@ -7,6 +7,24 @@
 <!-- ingredients_user.html -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<!-- LOGIC FOR SWAPPING ALTERNATIVES -->
+<script>
+    function swapIngredient(ingredientName, altName){
+        if (altName != 'None'){
+            var ingredient;        
+            var edit;
+            console.log(ingredientName);
+            console.log(altName);
+            $('#table td').each(function(){
+                ingredient = $(this).text();
+                edit = ingredient.trim();
+                if (edit == ingredientName) {
+                    $(this).text(altName);
+                }
+        })}
+        }
+</script>
+
     <div class="container">
         <br>
         <br>
@@ -35,12 +53,12 @@
         <tbody>
     {% for row in ingredients %}
         <tr>
-            <th scope="row" id="ingredient">{{row[1]}}</th>
+            <td scope="row" id="ingredient">{{row[1]}}</th>
             <td id="alert">{{row[2]}}</td>          
             <td>{{row[3]}}</td>
             <td id="alt">{{row[4]}}</td>
             <td>
-                <input type="checkbox" name="usealt" id="usealt"> Use</input>
+                <input type="checkbox" name="usealt" id="usealt" onclick="swapIngredient('{{row[1]}}','{{row[4]}}')"> Use</input>
             </td>
         </tr>
     {% endfor %}
@@ -62,14 +80,6 @@
     });
 </script>
 
-<!-- LOGIC FOR SWAPPING ALTERNATIVES -->
-<script>
-$(document).ready(function(){
-  $("#usealt").click(function(){
-    $("#ingredient").text($("#alt").text())
-  });
-});
-</script>
 
 
 {% endblock %}
