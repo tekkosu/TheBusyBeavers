@@ -53,7 +53,12 @@ def ingredients_user(recipe_id, user_id):
     recipe_query = "select * from Recipes where recipeID = %i" % recipe_id
     recipe_result = execute_query(db_connection, recipe_query).fetchall()
 
-    return render_template('ingredients_user.html', ingredients = ingredients_result, recipe = recipe_result, userid = user_id)
+    userID = user_id
+    
+    userquery = 'SELECT * FROM Users WHERE userID = %i' % user_id
+    result = execute_query(db_connection, userquery).fetchall()
+
+    return render_template('ingredients_user.html', ingredients = ingredients_result, recipe = recipe_result, user=result, userid = user_id)
 
 @webapp.route('/save_recipe/<int:recipe_id>/<int:user_id>')
 def save_recipe(recipe_id, user_id):
@@ -155,7 +160,11 @@ def new_user_login():
             elif usernameExists is not None:
                 acctQuery = 'INSERT INTO Users (userName, userPassword, userEmail) VALUES (%s,%s,%s)'
                 data = (userName, userPassword, userEmail)
-                result = execute_query(db_connection, acctQuery, data)
+                result = execute_query(db_connection, acctQuery, data).fetchall()
+
+                testuserquery = 'SELECT * FROM Users where userName = %s and userPassword = %s'
+                testdata = (userName, userPassword)
+                testresult = execute_query(db_connection, testuserquery, testdata).fetchall()
 
                 recipequery = 'SELECT * FROM Recipes'
                 recipesresult = execute_query(db_connection, recipequery).fetchall()
@@ -168,7 +177,7 @@ def new_user_login():
             return render_template("createAccount.html")
 
         # TO DO LIST: for creating an account, query for the user ID and send it as a variable in the flask render
-        return render_template('index_new_user.html', user = result, recipes=recipesresult)
+        return render_template('index_new_user.html', user=testresult, recipes=recipesresult)
 
 @webapp.route('/continueGuest')
 def continueGuest():

@@ -7,15 +7,15 @@
     <div class="container" align="center">
         <br>
         <br>
-        <br>
-        <br>
+        
+        
         <p><h1 class="display-2">Ethical Eats</h1></p><br>
         <p>
-            Welcome, {{ user[0][1]}}
-            <br>
-            <a href="/recipebook/{{ user[0][0] }}">My Recipe Book</a>
-            <br>
+            <h3 class="text">Welcome, {{ user[0][1]}}!</h3>            
+            
+            <a class="btn btn-primary btn-lg" href="/recipebook/{{ user[0][0] }}" role="button">My Recipe Book</a>
             <div class="btn-group">
+                    
                     <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Select A Recipe
                     </button>

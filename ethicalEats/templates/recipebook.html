@@ -4,16 +4,15 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container" align="center">
         <br>
         <br>
-        <h1 class="title-font" id="title-index" align="center">Ethical Eats!</h1>
+        <p><h1 class="display-2">Ethical Eats</h1></p><br>
         <p>
-            <br><br>
-            <a class="btn btn-primary" href="/user_login/{{userid}}" role="button">Back to Recipes</a>
             <center>
                 <div>
-                    <p>{{ user[0][1] }}'s Recipe Book</p>
+                    <h3 class="text">{{ user[0][1] }}'s Recipe Book</h3>
+                    <br>
                     <table>
                         <tr>
                             <th>Recipe Name</th>
@@ -26,6 +25,8 @@
                         {% endfor %}
                     </table>
                 </div>
+                <br><br>
+                <a class="btn btn-primary" href="/user_login/{{userid}}" role="button">Back to Recipes</a>
             </center>
         </p>
     </div>
