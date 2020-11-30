@@ -3,6 +3,8 @@ CS361 - Ethical Eating
 
 INITIAL SETUP
 
+- clone the repo to the location of your choice
+	git clone https://github.com/tekkosu/TheBusyBeavers.git
 - set up virtual environment on flip, in folder of your choice (don't set it up in the same folder as the Ethical Eats github folder)
       bash 
       virtualenv venv -p $(which python3)
